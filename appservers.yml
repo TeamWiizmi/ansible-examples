@@ -4,6 +4,8 @@
   sudo_user: deployer
   tasks:
     - name: Install Ruby build dependency
+      sudo: yes
+      sudo_user: root
       apt:
         name={{ item }}
         state=installed
@@ -21,17 +23,18 @@
         - libxslt1-dev
         - libcurl4-openssl-dev
         - python-software-properties
+        - libffi-dev
 
     - name: Install rbenv
       git: 
         repo=https://github.com/sstephenson/rbenv.git
         dest=~/.rbenv
-        update=no
 
     - name: add rbenv bash path 
       lineinfile:
         dest=~/.bash_profile
         line='{{ item.line }}'
+        create=yes
       with_items:
         - {line: 'export PATH="$HOME/.rbenv/bin:$PATH"'}
         - {line: 'eval "$(rbenv init -)"'}
@@ -40,10 +43,20 @@
       git:
         repo=https://github.com/sstephenson/ruby-build.git 
         dest=~/.rbenv/plugins/ruby-build
-        update=no
 
     - name: Install Ruby 2.2.0
       command: bash -lc 'rbenv install 2.2.0 -s'
 
     - name: Active Ruby version
       command: bash -lc 'rbenv global 2.2.0; rbenv local 2.2.0; rbenv rehash'
+
+    - name: add .gemrc
+      lineinfile:
+        dest=~/.gemrc
+        line='{{ item.line }}'
+        create=yes
+      with_items:
+        - {line: 'gem: --no-ri --no-rdoc'}
+
+    - name: Install gem Bundler
+      command: bash -lc 'gem install bundler'
