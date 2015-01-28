@@ -1,0 +1,49 @@
+---
+- hosts: appservers
+  sudo: yes
+  sudo_user: deployer
+  tasks:
+    - name: Install Ruby build dependency
+      apt:
+        name={{ item }}
+        state=installed
+      with_items:
+        - git-core 
+        - curl
+        - zlib1g-dev
+        - build-essential
+        - libssl-dev
+        - libreadline-dev
+        - libyaml-dev
+        - libsqlite3-dev
+        - sqlite3
+        - libxml2-dev
+        - libxslt1-dev
+        - libcurl4-openssl-dev
+        - python-software-properties
+
+    - name: Install rbenv
+      git: 
+        repo=https://github.com/sstephenson/rbenv.git
+        dest=~/.rbenv
+        update=no
+
+    - name: add rbenv bash path 
+      lineinfile:
+        dest=~/.bash_profile
+        line='{{ item.line }}'
+      with_items:
+        - {line: 'export PATH="$HOME/.rbenv/bin:$PATH"'}
+        - {line: 'eval "$(rbenv init -)"'}
+
+    - name: Install Ruby-build
+      git:
+        repo=https://github.com/sstephenson/ruby-build.git 
+        dest=~/.rbenv/plugins/ruby-build
+        update=no
+
+    - name: Install Ruby 2.2.0
+      command: bash -lc 'rbenv install 2.2.0 -s'
+
+    - name: Active Ruby version
+      command: bash -lc 'rbenv global 2.2.0; rbenv local 2.2.0; rbenv rehash'

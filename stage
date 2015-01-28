@@ -1,0 +1,14 @@
+ubuntu-1 ansible_ssh_port=2222 ansible_ssh_host=ubuntu-1 ansible_ssh_user=vagrant
+ubuntu-2 ansible_ssh_port=2222 ansible_ssh_host=ubuntu-2 ansible_ssh_user=vagrant
+
+[dockerservers]
+ubuntu-1
+
+[webservers]
+ubuntu-2
+
+[appservers]
+ubuntu-2
+
+[dbservers]
+ubuntu-2

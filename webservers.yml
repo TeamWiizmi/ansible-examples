@@ -1,0 +1,11 @@
+---
+- hosts: webservers
+  tasks:
+    - name: Install nginx web server
+      apt: pkg=nginx state=installed
+      notify:
+        - start nginx
+
+  handlers:
+    - name: start nginx
+      service: name=nginx state=started

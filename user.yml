@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: add user deployer
+      sudo: true
+      user:
+        name=deployer
+        append=yes
+        groups=sudo
+        shell=/bin/bash
+        ssh_key_file=~/.ssh/id_rsa
+
+    - name: Set up authorized_keys for the deploy user
+      sudo: true
+      authorized_key:
+        user=deployer
+        key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
