@@ -32,7 +32,7 @@
 
     - name: add rbenv bash path 
       lineinfile:
-        dest=~/.bash_profile
+        dest=~/.bashrc
         line='{{ item.line }}'
         create=yes
       with_items:
@@ -45,10 +45,11 @@
         dest=~/.rbenv/plugins/ruby-build
 
     - name: Install Ruby 2.2.0
-      command: bash -lc 'rbenv install 2.2.0 -s'
+      command: bash -ic 'rbenv install 2.2.0 -s'
+      command: bash -ic 'rbenv install 2.2.0 -s'
 
     - name: Active Ruby version
-      command: bash -lc 'rbenv global 2.2.0; rbenv local 2.2.0; rbenv rehash'
+      command: bash -ic 'rbenv global 2.2.0; rbenv local 2.2.0; rbenv rehash'
 
     - name: add .gemrc
       lineinfile:
@@ -59,4 +60,14 @@
         - {line: 'gem: --no-ri --no-rdoc'}
 
     - name: Install gem Bundler
-      command: bash -lc 'gem install bundler'
+      command: bash -ic 'gem install bundler'
+
+    - name: add NodeJS repo
+      sudo: yes
+      sudo_user: root
+      apt_repository: repo='ppa:chris-lea/node.js' state=present
+
+    - name: Install NodeJS
+      sudo: yes
+      sudo_user: root
+      apt: pkg=nodejs state=latest update_cache=true
