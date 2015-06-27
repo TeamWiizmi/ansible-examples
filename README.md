@@ -1,3 +1,6 @@
+# Install ansible
+http://docs.ansible.com/intro_installation.html#installation
+
 ## Add a user with username "deploy"
 `ansible-playbook user.yml -i stage`
 
