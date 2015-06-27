@@ -1,10 +1,16 @@
 ---
 - hosts: webservers
   tasks:
-    - name: Install nginx web server
+    - name: Install Nginx web server
+      tags: nginx
       apt: pkg=nginx state=latest update_cache=yes
       notify:
         - start nginx
+
+    - name: Install Apache web server
+      tags: apache
+      apt: pkg=apache state=latest update_cache=yes
+
 
   handlers:
     - name: start nginx

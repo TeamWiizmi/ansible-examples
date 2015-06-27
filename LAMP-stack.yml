@@ -1,0 +1,6 @@
+---
+- include: user.yml
+- include: webservers.yml tags=apache
+- include: dbservers.yml tags=mysql
+# TODO
+# ex: - includes: php-fastcgi.yml
