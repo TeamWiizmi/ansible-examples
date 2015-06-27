@@ -1,7 +1,7 @@
 ---
 - hosts: appservers
   sudo: yes
-  sudo_user: deployer
+  sudo_user: deploy
   tasks:
     - name: Install Ruby build dependency
       sudo: yes
@@ -24,7 +24,7 @@
         - libcurl4-openssl-dev
         - python-software-properties
         - libffi-dev
-
+        - imagemagick
     - name: Install rbenv
       git: 
         repo=https://github.com/sstephenson/rbenv.git
@@ -44,12 +44,12 @@
         repo=https://github.com/sstephenson/ruby-build.git 
         dest=~/.rbenv/plugins/ruby-build
 
-    - name: Install Ruby 2.2.0
-      command: bash -ic 'rbenv install 2.2.0 -s'
-      command: bash -ic 'rbenv install 2.2.0 -s'
+    - name: Install Ruby 2.2.2
+      command: bash -ic 'rbenv install 2.2.2 -s'
+      command: bash -ic 'rbenv install 2.2.2 -s'
 
     - name: Active Ruby version
-      command: bash -ic 'rbenv global 2.2.0; rbenv local 2.2.0; rbenv rehash'
+      command: bash -ic 'rbenv global 2.2.2; rbenv local 2.2.2; rbenv rehash'
 
     - name: add .gemrc
       lineinfile:

@@ -2,7 +2,7 @@
 - hosts: webservers
   tasks:
     - name: Install nginx web server
-      apt: pkg=nginx state=installed
+      apt: pkg=nginx state=latest update_cache=yes
       notify:
         - start nginx
 
