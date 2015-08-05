@@ -1,13 +1,13 @@
-digitalocean-sf-512 ansible_ssh_port=2222 ansible_ssh_host=1.2.3.4 ansible_ssh_user=deployer
+digitalocean-sg-2g ansible_ssh_port=2222 ansible_ssh_host=128.199.155.231 ansible_ssh_user=deploy
 
 [dockerservers]
-digitalocean-512
+digitalocean-sg-2g
 
 [webservers]
-digitalocean-512
+digitalocean-sg-2g
 
 [appservers]
-digitalocean-512
+digitalocean-sg-2g
 
 [dbservers]
-digitalocean-512
+digitalocean-sg-2g

@@ -1,0 +1,9 @@
+- name: Install MySQL Database
+  apt:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items:
+    - mysql-server 
+    - mysql-client
+    - libmysqlclient-dev

@@ -1,0 +1,3 @@
+- name: Install Apache web server
+  tags: apache
+  apt: pkg=apache state=latest update_cache=yes

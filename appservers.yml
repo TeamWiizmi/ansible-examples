@@ -1,3 +1,4 @@
+# TODO move tasks below to roles folders
 ---
 - hosts: appservers
   sudo: yes
